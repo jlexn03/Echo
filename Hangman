@@ -1,0 +1,1006 @@
+Hangman2.py
+Text
+Private comments
+Hangman
+from tkinter import *
+from tkinter import ttk
+import os
+# By Minos Dobson & Julius Followill & Emmett Allen
+trys=0
+letter1b = ""
+letter2b = ""
+letter3b = ""
+letter4b = ""
+letter5b = ""
+letter6b = ""
+
+def Game():
+    root = Tk()
+    frame = ttk.Frame(root)
+    frame.pack()
+    root.title("Hangman Gallows")
+    root.resizable(False, False)
+    canvas = Canvas(root)
+    canvas.pack()
+    canvas.config(width = 700, height = 700)
+    import random
+    global Logo 
+    global large_image 
+    global image 
+    
+    def Gallows():
+       line = canvas.create_line(90,60,90,320,width = 5)
+       line = canvas.create_line(45,320,132,320,width = 5)
+       line = canvas.create_line(90,60,200,60,width = 5)
+       line = canvas.create_line(200,100,200,60,width = 5)
+
+
+    def head():
+        oval = canvas.create_oval(165,100,235,160,width = 2)
+
+
+
+    def body():
+        line = canvas.create_line(200,160,200,240,width = 2)
+    
+
+
+    def right_arm():
+        line = canvas.create_line(200,180,220,250,width = 2)
+    
+
+    def left_arm():
+        line = canvas.create_line(200,180,180,250,width = 2)
+    
+
+    def leftleg():
+        line = canvas.create_line(200,240,170,310,width = 2)
+
+    def rightleg():
+        line = canvas.create_line(200,240,230,310,width = 2)
+
+
+    def Body():
+        Gallows()
+        head()
+        body()
+        arms()
+        leftleg()
+        rightleg()
+    #Body()
+    def letterused():
+        global list
+        global converter
+        converter=(letter.get())
+        converter = converter.upper()
+        converted.set(converter)
+        letter.delete(0,'end')
+        #used_letters1.append(converter)# where list is getting variables 
+        list = incorrect
+        print(list)
+       #letters.set(incorrect)
+        Word_Box_2()
+
+
+    word_list = ['buzzed', 'guzzle', 'frizzy', 'fuzzed', 'puzzle', 'dazzle','queasy', 'artist', 'effort', 'season']
+    #word_list = ['dazzle']
+    secret_word = (random.choice(word_list))
+    #print(secret_word)
+
+    Letter1a = StringVar()
+    Letter2a = StringVar()
+    Letter3a = StringVar()    
+    Letter4a = StringVar()
+    Letter5a = StringVar()
+    Letter6a = StringVar()
+    
+    letter = StringVar()
+    letters = StringVar()
+    converted = StringVar()
+    
+    
+    #used_letters1 = StringVar()
+    used_letters1 = [] 
+
+    letter = ttk.Entry(root, width = 2,textvariable = letter)
+    letter.pack()
+    ttk.Label(root, text = 'Enter One Letter and Click The Check Button').pack()
+    answer = Button(root, text = 'Check', command = letterused, width = 20)
+    answer.pack()
+    mylabel0 = canvas.create_text((355, 110), text="Incorrect Letters Used")
+    Letter_Entered = ttk.Label(root, textvariable = letters)# label i'm using
+    Letter_Entered.place(x = 320, y = 135, )
+    rect = canvas.create_rectangle(690, 120, 470, 260)
+    mylabel1 = canvas.create_text((510, 110), text="Instructions")
+    mylabel2 = canvas.create_text((565, 130), text="Enter ONE letter into the textbox ")
+    mylabel3 = canvas.create_text((569, 145), text="and click the 'Check' button. Then")
+    mylabel4 = canvas.create_text((569, 160), text="see if your guess was correct. You ")
+    mylabel5 = canvas.create_text((562, 175), text="have 7 guesses. the gallows will")
+    mylabel6 = canvas.create_text((562, 190), text="appear after your first incorrect")
+    mylabel7 = canvas.create_text((562, 205), text="guess, then following the body")
+    mylabel8 = canvas.create_text((569, 220), text="parts. Once you finish please click ")
+    mylabel9 = canvas.create_text((577, 235), text="the reset button and wait a moment.")
+    mylabel10 = canvas.create_text((570, 250), text="Good Luck!")
+    ttk.Label(root, text = 'By: Minos Dobson, Julius Followill, Emmett Allen').pack()
+
+
+    def closeWin():
+        root.destroy()  # Close Window Function
+        os.system("Hangman2.py")
+        
+    quit = Button(root, text="Reset and regenerate", command=closeWin)
+    quit.place(x=500, y=735)
+
+
+    rect = canvas.create_rectangle(300, 120, 460, 260)
+    quit.config(state= DISABLED)
+
+    incorrect = []
+
+     
+    def Word_Box_2():
+        global Letter1
+        global Letter2
+        global Letter3
+        global Letter4
+        global Letter5
+        global Letter6
+        global converter
+        global trys
+        global letter1b
+        global letter2b
+        global letter3b
+        global letter4b
+        global letter5b
+        global letter6b
+        print(converter)
+        if(secret_word == 'buzzed'):
+            Letter1 = 'B'
+            Letter2 = 'U'
+            Letter3 = 'Z'
+            Letter4 = 'Z'
+            Letter5 = 'E'
+            Letter6 = 'D'
+            if (converter == Letter1):
+                Letter1a.set(converter)
+                letter1b = converter
+                print (letter1b)
+            if (converter == Letter2):
+                Letter2a.set(converter)
+                letter2b = converter
+                print(letter2b)
+            if (converter == Letter3):
+                Letter3a.set(converter)
+                letter3b = converter
+                print(letter3b)
+            if (converter == Letter4):
+                Letter4a.set(converter)
+                letter4b = converter
+                print(letter4b)
+            if (converter == Letter5):
+                Letter5a.set(converter)
+                letter5b = converter
+                print(letter5b)
+            if (converter == Letter6):
+                Letter6a.set(converter)
+                letter6b = converter
+                print(letter6b)
+            if(converter != Letter1 and converter != Letter2 and converter != Letter3 and converter != Letter4 and converter != Letter5 and converter != Letter6):
+                incorrect.append(converter)
+                trys += 1
+                if(trys == 1):
+                    Gallows()
+                if(trys == 2):
+                    Gallows()
+                    head()
+                if(trys == 3):
+                    Gallows()
+                    head()
+                    body()
+                if(trys == 4):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                if(trys == 5):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                if(trys == 6):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                if(trys == 7):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                    rightleg()
+                if(trys == 7):
+                    ttk.Label(root, text = 'GAME OVER').pack()  
+                    answer.config(state= DISABLED)
+                    quit.config(state= ACTIVE)
+                    letter.config(state= DISABLED)
+            if(letter1b == 'B')and(letter2b == 'U')and(letter3b == 'Z')and(letter4b =='Z')and(letter5b == 'E')and(letter6b == 'D'):
+                ttk.Label(root, text = 'YOU WON!').pack()
+                answer.config(state= DISABLED)
+                quit.config(state= ACTIVE)
+                letter.config(state= DISABLED)
+
+ 
+        if(secret_word == 'guzzle'):
+            Letter1 = 'G'
+            Letter2 = 'U'
+            Letter3 = 'Z'
+            Letter4 = 'Z'
+            Letter5 = 'L'
+            Letter6 = 'E'
+            if (converter == Letter1):
+                Letter1a.set(converter)
+                letter1b = converter
+                print (letter1b)
+            if (converter == Letter2):
+                Letter2a.set(converter)
+                letter2b = converter
+                print(letter2b)
+            if (converter == Letter3):
+                Letter3a.set(converter)
+                letter3b = converter
+                print(letter3b)
+            if (converter == Letter4):
+                Letter4a.set(converter)
+                letter4b = converter
+                print(letter4b)
+            if (converter == Letter5):
+                Letter5a.set(converter)
+                letter5b = converter
+                print(letter5b)
+            if (converter == Letter6):
+                Letter6a.set(converter)
+                letter6b = converter
+                print(letter6b)
+            if(converter != Letter1 and converter != Letter2 and converter != Letter3 and converter != Letter4 and converter != Letter5 and converter != Letter6):
+                incorrect.append(converter)
+                trys += 1
+                if(trys == 1):
+                    Gallows()
+                if(trys == 2):
+                    Gallows()
+                    head()
+                if(trys == 3):
+                    Gallows()
+                    head()
+                    body()
+                if(trys == 4):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                if(trys == 5):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                if(trys == 6):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                if(trys == 7):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                    rightleg()
+                if(trys == 7):
+                    ttk.Label(root, text = 'GAME OVER').pack()  
+                    answer.config(state= DISABLED)
+                    quit.config(state= ACTIVE)
+                    letter.config(state= DISABLED)
+            if(letter1b == 'G')and(letter2b == 'U')and(letter3b == 'Z')and(letter4b =='Z')and(letter5b == 'L')and(letter6b == 'E'):
+                ttk.Label(root, text = 'YOU WON!').pack()
+                answer.config(state= DISABLED)
+                quit.config(state= ACTIVE)
+                letter.config(state= DISABLED)
+                
+        if(secret_word == 'frizzy'):
+            Letter1 = 'F'
+            Letter2 = 'R'
+            Letter3 = 'I'
+            Letter4 = 'Z'
+            Letter5 = 'Z'
+            Letter6 = 'Y'
+            if (converter == Letter1):
+                Letter1a.set(converter)
+                letter1b = converter
+                print (letter1b)
+            if (converter == Letter2):
+                Letter2a.set(converter)
+                letter2b = converter
+                print(letter2b)
+            if (converter == Letter3):
+                Letter3a.set(converter)
+                letter3b = converter
+                print(letter3b)
+            if (converter == Letter4):
+                Letter4a.set(converter)
+                letter4b = converter
+                print(letter4b)
+            if (converter == Letter5):
+                Letter5a.set(converter)
+                letter5b = converter
+                print(letter5b)
+            if (converter == Letter6):
+                Letter6a.set(converter)
+                letter6b = converter
+                print(letter6b)
+            if(converter != Letter1 and converter != Letter2 and converter != Letter3 and converter != Letter4 and converter != Letter5 and converter != Letter6):
+                incorrect.append(converter)
+                trys += 1
+                if(trys == 1):
+                    Gallows()
+                if(trys == 2):
+                    Gallows()
+                    head()
+                if(trys == 3):
+                    Gallows()
+                    head()
+                    body()
+                if(trys == 4):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                if(trys == 5):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                if(trys == 6):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                if(trys == 7):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                    rightleg()
+                if(trys == 7):
+                    ttk.Label(root, text = 'GAME OVER').pack()  
+                    answer.config(state= DISABLED)
+                    quit.config(state= ACTIVE)
+                    letter.config(state= DISABLED)
+            if(letter1b == 'F')and(letter2b == 'R')and(letter3b == 'I')and(letter4b =='Z')and(letter5b == 'Z')and(letter6b == 'Y'):
+                ttk.Label(root, text = 'YOU WON!').pack()
+                answer.config(state= DISABLED)
+                quit.config(state= ACTIVE)
+                letter.config(state= DISABLED)
+        if(secret_word == 'fuzzed'):
+            Letter1 = 'F'
+            Letter2 = 'U'
+            Letter3 = 'Z'
+            Letter4 = 'Z'
+            Letter5 = 'E'
+            Letter6 = 'D'
+            if (converter == Letter1):
+                Letter1a.set(converter)
+                letter1b = converter
+                print (letter1b)
+            if (converter == Letter2):
+                Letter2a.set(converter)
+                letter2b = converter
+                print(letter2b)
+            if (converter == Letter3):
+                Letter3a.set(converter)
+                letter3b = converter
+                print(letter3b)
+            if (converter == Letter4):
+                Letter4a.set(converter)
+                letter4b = converter
+                print(letter4b)
+            if (converter == Letter5):
+                Letter5a.set(converter)
+                letter5b = converter
+                print(letter5b)
+            if (converter == Letter6):
+                Letter6a.set(converter)
+                letter6b = converter
+                print(letter6b)
+            if(converter != Letter1 and converter != Letter2 and converter != Letter3 and converter != Letter4 and converter != Letter5 and converter != Letter6):
+                incorrect.append(converter)
+                trys += 1
+                if(trys == 1):
+                    Gallows()
+                if(trys == 2):
+                    Gallows()
+                    head()
+                if(trys == 3):
+                    Gallows()
+                    head()
+                    body()
+                if(trys == 4):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                if(trys == 5):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                if(trys == 6):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                if(trys == 7):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                    rightleg()
+                if(trys == 7):
+                    ttk.Label(root, text = 'GAME OVER').pack()  
+                    answer.config(state= DISABLED)
+                    quit.config(state= ACTIVE)
+                    letter.config(state= DISABLED)
+            if(letter1b == 'F')and(letter2b == 'U')and(letter3b == 'Z')and(letter4b =='Z')and(letter5b == 'E')and(letter6b == 'D'):
+                ttk.Label(root, text = 'YOU WON!').pack()
+                answer.config(state= DISABLED)
+                quit.config(state= ACTIVE)
+                letter.config(state= DISABLED)
+        if(secret_word == 'puzzle'):
+            Letter1 = 'P'
+            Letter2 = 'U'
+            Letter3 = 'Z'
+            Letter4 = 'Z'
+            Letter5 = 'L'
+            Letter6 = 'E'
+            if (converter == Letter1):
+                Letter1a.set(converter)
+                letter1b = converter
+                print (letter1b)
+            if (converter == Letter2):
+                Letter2a.set(converter)
+                letter2b = converter
+                print(letter2b)
+            if (converter == Letter3):
+                Letter3a.set(converter)
+                letter3b = converter
+                print(letter3b)
+            if (converter == Letter4):
+                Letter4a.set(converter)
+                letter4b = converter
+                print(letter4b)
+            if (converter == Letter5):
+                Letter5a.set(converter)
+                letter5b = converter
+                print(letter5b)
+            if (converter == Letter6):
+                Letter6a.set(converter)
+                letter6b = converter
+                print(letter6b)
+            if(converter != Letter1 and converter != Letter2 and converter != Letter3 and converter != Letter4 and converter != Letter5 and converter != Letter6):
+                incorrect.append(converter)
+                trys += 1
+                if(trys == 1):
+                    Gallows()
+                if(trys == 2):
+                    Gallows()
+                    head()
+                if(trys == 3):
+                    Gallows()
+                    head()
+                    body()
+                if(trys == 4):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                if(trys == 5):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                if(trys == 6):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                if(trys == 7):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                    rightleg()
+                if(trys == 7):
+                    ttk.Label(root, text = 'GAME OVER').pack()  
+                    answer.config(state= DISABLED)
+                    quit.config(state= ACTIVE)
+                    letter.config(state= DISABLED)
+            if(letter1b == 'P')and(letter2b == 'U')and(letter3b == 'Z')and(letter4b =='Z')and(letter5b == 'L')and(letter6b == 'E'):
+                ttk.Label(root, text = 'YOU WON!').pack()
+                answer.config(state= DISABLED)
+                quit.config(state= ACTIVE)
+                letter.config(state= DISABLED)
+        if(secret_word == 'dazzle'):
+            Letter1 = 'D'
+            Letter2 = 'A'
+            Letter3 = 'Z'
+            Letter4 = 'Z'
+            Letter5 = 'L'
+            Letter6 = 'E'
+            if (converter == Letter1):
+                Letter1a.set(converter)
+                letter1b = converter
+                print (letter1b)
+            if (converter == Letter2):
+                Letter2a.set(converter)
+                letter2b = converter
+                print(letter2b)
+            if (converter == Letter3):
+                Letter3a.set(converter)
+                letter3b = converter
+                print(letter3b)
+            if (converter == Letter4):
+                Letter4a.set(converter)
+                letter4b = converter
+                print(letter4b)
+            if (converter == Letter5):
+                Letter5a.set(converter)
+                letter5b = converter
+                print(letter5b)
+            if (converter == Letter6):
+                Letter6a.set(converter)
+                letter6b = converter
+                print(letter6b)
+            if(converter != Letter1 and converter != Letter2 and converter != Letter3 and converter != Letter4 and converter != Letter5 and converter != Letter6):
+                incorrect.append(converter)
+                trys += 1
+                if(trys == 1):
+                    Gallows()
+                if(trys == 2):
+                    Gallows()
+                    head()
+                if(trys == 3):
+                    Gallows()
+                    head()
+                    body()
+                if(trys == 4):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                if(trys == 5):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                if(trys == 6):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                if(trys == 7):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                    rightleg()
+                if(trys == 7):
+                    ttk.Label(root, text = 'GAME OVER').pack()  
+                    answer.config(state= DISABLED)
+                    quit.config(state= ACTIVE)
+                    letter.config(state= DISABLED)
+            if(letter1b == 'D')and(letter2b == 'A')and(letter3b == 'Z')and(letter4b =='Z')and(letter5b == 'L')and(letter6b == 'E'):
+                ttk.Label(root, text = 'YOU WON!').pack()
+                answer.config(state= DISABLED)
+                quit.config(state= ACTIVE)
+                letter.config(state= DISABLED)
+        if(secret_word == 'queasy'):
+            Letter1 = 'Q'
+            Letter2 = 'U'
+            Letter3 = 'E'
+            Letter4 = 'A'
+            Letter5 = 'S'
+            Letter6 = 'Y'
+            if (converter == Letter1):
+                Letter1a.set(converter)
+                letter1b = converter
+                print (letter1b)
+            if (converter == Letter2):
+                Letter2a.set(converter)
+                letter2b = converter
+                print(letter2b)
+            if (converter == Letter3):
+                Letter3a.set(converter)
+                letter3b = converter
+                print(letter3b)
+            if (converter == Letter4):
+                Letter4a.set(converter)
+                letter4b = converter
+                print(letter4b)
+            if (converter == Letter5):
+                Letter5a.set(converter)
+                letter5b = converter
+                print(letter5b)
+            if (converter == Letter6):
+                Letter6a.set(converter)
+                letter6b = converter
+                print(letter6b)
+            if(converter != Letter1 and converter != Letter2 and converter != Letter3 and converter != Letter4 and converter != Letter5 and converter != Letter6):
+                incorrect.append(converter)
+                trys += 1
+                if(trys == 1):
+                    Gallows()
+                if(trys == 2):
+                    Gallows()
+                    head()
+                if(trys == 3):
+                    Gallows()
+                    head()
+                    body()
+                if(trys == 4):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                if(trys == 5):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                if(trys == 6):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                if(trys == 7):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                    rightleg()
+                if(trys == 7):
+                    ttk.Label(root, text = 'GAME OVER').pack()  
+                    answer.config(state= DISABLED)
+                    quit.config(state= ACTIVE)
+                    letter.config(state= DISABLED)
+            if(letter1b == 'Q')and(letter2b == 'U')and(letter3b == 'E')and(letter4b =='A')and(letter5b == 'S')and(letter6b == 'Y'):
+                ttk.Label(root, text = 'YOU WON!').pack()
+                answer.config(state= DISABLED)
+                quit.config(state= ACTIVE)
+                letter.config(state= DISABLED)
+        if(secret_word == 'artist'):
+            Letter1 = 'A'
+            Letter2 = 'R'
+            Letter3 = 'T'
+            Letter4 = 'I'
+            Letter5 = 'S'
+            Letter6 = 'T'
+            if (converter == Letter1):
+                Letter1a.set(converter)
+                letter1b = converter
+                print (letter1b)
+            if (converter == Letter2):
+                Letter2a.set(converter)
+                letter2b = converter
+                print(letter2b)
+            if (converter == Letter3):
+                Letter3a.set(converter)
+                letter3b = converter
+                print(letter3b)
+            if (converter == Letter4):
+                Letter4a.set(converter)
+                letter4b = converter
+                print(letter4b)
+            if (converter == Letter5):
+                Letter5a.set(converter)
+                letter5b = converter
+                print(letter5b)
+            if (converter == Letter6):
+                Letter6a.set(converter)
+                letter6b = converter
+                print(letter6b)
+            if(converter != Letter1 and converter != Letter2 and converter != Letter3 and converter != Letter4 and converter != Letter5 and converter != Letter6):
+                incorrect.append(converter)
+                trys += 1
+                if(trys == 1):
+                    Gallows()
+                if(trys == 2):
+                    Gallows()
+                    head()
+                if(trys == 3):
+                    Gallows()
+                    head()
+                    body()
+                if(trys == 4):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                if(trys == 5):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                if(trys == 6):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                if(trys == 7):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                    rightleg()
+                if(trys == 7):
+                    ttk.Label(root, text = 'GAME OVER').pack()  
+                    answer.config(state= DISABLED)
+                    quit.config(state= ACTIVE)
+                    letter.config(state= DISABLED)
+            if(letter1b == 'A')and(letter2b == 'R')and(letter3b == 'T')and(letter4b =='I')and(letter5b == 'S')and(letter6b == 'T'):
+                ttk.Label(root, text = 'YOU WON!').pack()
+                answer.config(state= DISABLED)
+                quit.config(state= ACTIVE)
+                letter.config(state= DISABLED)
+        if(secret_word == 'effort'):
+            Letter1 = 'E'
+            Letter2 = 'F'
+            Letter3 = 'F'
+            Letter4 = 'O'
+            Letter5 = 'R'
+            Letter6 = 'T'
+            if (converter == Letter1):
+                Letter1a.set(converter)
+                letter1b = converter
+                print (letter1b)
+            if (converter == Letter2):
+                Letter2a.set(converter)
+                letter2b = converter
+                print(letter2b)
+            if (converter == Letter3):
+                Letter3a.set(converter)
+                letter3b = converter
+                print(letter3b)
+            if (converter == Letter4):
+                Letter4a.set(converter)
+                letter4b = converter
+                print(letter4b)
+            if (converter == Letter5):
+                Letter5a.set(converter)
+                letter5b = converter
+                print(letter5b)
+            if (converter == Letter6):
+                Letter6a.set(converter)
+                letter6b = converter
+                print(letter6b)
+            if(converter != Letter1 and converter != Letter2 and converter != Letter3 and converter != Letter4 and converter != Letter5 and converter != Letter6):
+                incorrect.append(converter)
+                trys += 1
+                if(trys == 1):
+                    Gallows()
+                if(trys == 2):
+                    Gallows()
+                    head()
+                if(trys == 3):
+                    Gallows()
+                    head()
+                    body()
+                if(trys == 4):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                if(trys == 5):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                if(trys == 6):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                if(trys == 7):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                    rightleg()
+                if(trys == 7):
+                    ttk.Label(root, text = 'GAME OVER').pack()  
+                    answer.config(state= DISABLED)
+                    quit.config(state= ACTIVE)
+                    letter.config(state= DISABLED)
+            if(letter1b == 'E')and(letter2b == 'F')and(letter3b == 'F')and(letter4b =='O')and(letter5b == 'R')and(letter6b == 'T'):
+                ttk.Label(root, text = 'YOU WON!').pack()
+                answer.config(state= DISABLED)
+                quit.config(state= ACTIVE)
+                letter.config(state= DISABLED)
+        if(secret_word == 'season'):
+            Letter1 = 'S'
+            Letter2 = 'E'
+            Letter3 = 'A'
+            Letter4 = 'S'
+            Letter5 = 'O'
+            Letter6 = 'N'
+            if (converter == Letter1):
+                Letter1a.set(converter)
+                letter1b = converter
+                print (letter1b)
+            if (converter == Letter2):
+                Letter2a.set(converter)
+                letter2b = converter
+                print(letter2b)
+            if (converter == Letter3):
+                Letter3a.set(converter)
+                letter3b = converter
+                print(letter3b)
+            if (converter == Letter4):
+                Letter4a.set(converter)
+                letter4b = converter
+                print(letter4b)
+            if (converter == Letter5):
+                Letter5a.set(converter)
+                letter5b = converter
+                print(letter5b)
+            if (converter == Letter6):
+                Letter6a.set(converter)
+                letter6b = converter
+                print(letter6b)
+            if(converter != Letter1 and converter != Letter2 and converter != Letter3 and converter != Letter4 and converter != Letter5 and converter != Letter6):
+                incorrect.append(converter)
+                trys += 1
+                if(trys == 1):
+                    Gallows()
+                if(trys == 2):
+                    Gallows()
+                    head()
+                if(trys == 3):
+                    Gallows()
+                    head()
+                    body()
+                if(trys == 4):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                if(trys == 5):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                if(trys == 6):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                if(trys == 7):
+                    Gallows()
+                    head()
+                    body()
+                    left_arm()
+                    right_arm()
+                    leftleg()
+                    rightleg()
+                if(trys == 7):
+                    ttk.Label(root, text = 'GAME OVER').pack()  
+                    answer.config(state= DISABLED)
+                    quit.config(state= ACTIVE)
+                    letter.config(state= DISABLED)
+            if(letter1b == 'S')and(letter2b == 'E')and(letter3b == 'A')and(letter4b =='S')and(letter5b == 'O')and(letter6b == 'N'):
+                ttk.Label(root, text = 'YOU WON!').pack()
+                answer.config(state= DISABLED)
+                quit.config(state= ACTIVE)
+                letter.config(state= DISABLED)
+                
+        
+                
+        letters.set(incorrect)
+        
+            
+            
+
+        #rect = canvas.create_rectangle(10, 500, 690, 300)
+        #line = canvas.create_line(110,480,170,480,width = 5)
+        #line = canvas.create_line(190,480,250,480,width = 5)
+        #line = canvas.create_line(270,480,330,480,width = 5)
+        #line = canvas.create_line(350,480,410,480,width = 5)
+        #line = canvas.create_line(430,480,490,480,width = 5)
+        #line = canvas.create_line(510,480,570,480,width = 5)
+    def blanks():
+        blank1=ttk.Label(root, textvariable = Letter1a, font=("Times New Roman",18))
+        blank1.place(x = 130 ,y = 440)
+        blank2=ttk.Label(root, textvariable = Letter2a, font=("Times New Roman",18))
+        blank2.place(x = 210 ,y = 440)
+        blank3=ttk.Label(root, textvariable = Letter3a, font=("Times New Roman",18))
+        blank3.place(x = 290 ,y = 440)
+        blank4=ttk.Label(root, textvariable = Letter4a, font=("Times New Roman",18))
+        blank4.place(x = 370 ,y = 440)
+        blank5=ttk.Label(root, textvariable = Letter5a, font=("Times New Roman",18))
+        blank5.place(x = 450 ,y = 440)
+        blank6=ttk.Label(root, textvariable = Letter6a, font=("Times New Roman",18))
+        blank6.place(x = 530 ,y = 440)
+        Letter1a.set('_')
+        Letter2a.set('_')
+        Letter3a.set('_')
+        Letter4a.set('_')
+        Letter5a.set('_')
+        Letter6a.set('_')
+        
+    blanks()
+
+    def Word_Box_3():
+        rect = canvas.create_rectangle(10, 500, 690, 300)
+        line = canvas.create_line(110,480,170,480,width = 5)
+        line = canvas.create_line(190,480,250,480,width = 5)
+        line = canvas.create_line(270,480,330,480,width = 5)
+        line = canvas.create_line(350,480,410,480,width = 5)
+        line = canvas.create_line(430,480,490,480,width = 5)
+        line = canvas.create_line(510,480,570,480,width = 5)
+        ttk.Label(root, textvariable = correct_letter, font=("Times New Roman",18)).place(x = 130 ,y = 440)
+        ttk.Label(root, textvariable = correct_letter, font=("Times New Roman",18)).place(x = 210 ,y = 440)
+        ttk.Label(root, textvariable = correct_letter, font=("Times New Roman",18)).place(x = 290 ,y = 440)
+        ttk.Label(root, textvariable = correct_letter, font=("Times New Roman",18)).place(x = 370 ,y = 440)
+        ttk.Label(root, textvariable = correct_letter, font=("Times New Roman",18)).place(x = 450 ,y = 440)
+        ttk.Label(root, textvariable = correct_letter, font=("Times New Roman",18)).place(x = 530 ,y = 440)
+
+
+
+
+    root.mainloop()
+Game()
